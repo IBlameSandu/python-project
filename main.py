@@ -1,6 +1,7 @@
 import random, math
 from kiez_kand import Kiezer, Kandidaat, Lijst
 from stemsysteem import Stembus, Scanner, Stemcomputer, Chipkaart, USBStick
+from toHTML import parser
 
 def main():
     #Een paar dictionaries aanmaken.
@@ -54,15 +55,12 @@ def main():
                 output.write(f"{kiezer.getName()} heeft succesvol gestemd!\n")
                 scann.check(stem)
                 stembus.addStembil(stem)
-        
-        for lijst in lijsten.values():
-            for x in lijst.getKandidaten():
-                print(f"kandidaat {x.getName()} heeft {x.getStemmen()} stemmen")
-
-
+    output.close()
+    parser(lijsten)
+    #for lijst in lijsten.values():
+        #for x in lijst.getKandidaten():
+            #print(f"kandidaat {x.getName()} heeft {x.getStemmen()} stemmen")
     #print(f"er werden {nummer/1200} chipkaarten aangemaakt voor elk kiezer")
-
-
 
 if __name__=="__main__":
     main()

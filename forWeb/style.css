@@ -1,0 +1,28 @@
+/*klein beetje css om de html mooier te maken*/
+* {
+  font-family: monospace;
+}
+body {
+  background: white;
+}
+h1 {
+  font-weight: 900;
+  text-align: center;
+  padding: 2vh 0vw;
+}
+div {
+  background-color: #fff;
+  padding: 2vh 2vw;
+}
+div.winnaar {
+  background: lightgray;
+}
+@media (min-width: 1200px) {
+  body {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+  h1 {
+    grid-column: 1/6;
+  }
+}
