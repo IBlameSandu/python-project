@@ -1,6 +1,6 @@
 import random, math
-from kiez_kand import Kiezer, Lijst
-from stemsysteem import Stembiljet, Stembus, Scanner, Stemcomputer, Chipkaart, USBStick
+from kiez_kand import Kiezer, Kandidaat, Lijst
+from stemsysteem import Stembus, Scanner, Stemcomputer, Chipkaart, USBStick
 
 def main():
     #Een paar dictionaries aanmaken.
@@ -11,23 +11,58 @@ def main():
     for x in range(5):
         lijsten[f"Partij{x+1}"]=Lijst(f"Partij{x+1}")
 
+    print("partijen aangemaakt.")
+
     #Kiezers en kandidaten aanmaken, de kandidaten worden ook direct in hun partij gezet.
     count=1
     for x in range(1200):
         if x < 50:
-            if lijsten[f"Partij{count}"].aantal_kandidaten() >= lijsten[f"Partij{count}"].maxKandidaten:
+            if lijsten[f"Partij{count}"].aantalKandidaten() >= lijsten[f"Partij{count}"].maxKandidaten:
                 count += 1
-            lijsten[f"Partij{count}"].add_Kandidaat(Kiezer(x))
-            Kiezers[f"kiezer{x}"]=Kiezer(x)
+            kandidaat=Kandidaat(x)
+            lijsten[f"Partij{count}"].addKandidaat(kandidaat)
+            Kiezers[f"kiezer{x}"]=kandidaat
         else:
             Kiezers[f"kiezer{x}"]=Kiezer(x)
+    print("kiezers en kandidaten aangemaakt.")
     
-    
-    
-    #for x in range(5):
-        #print(f"Partij {x+1} heeft {lijsten[f'Partij{x+1}'].aantal_kandidaten()} kandidaten, de kandidaten zijn {lijsten[f'Partij{x+1}']}.")
-    #print(Kiezers)
-    #print(len(Kiezers))
+    print(f"werkt volledig, kiezer lengte {len(Kiezers)}, 50 kandidaten")
+
+    usb=USBStick()
+    scann=Scanner()
+    stembus=Stembus()
+    stembus.geefCodeUSB(usb)
+    stemcomputer1=Stemcomputer(usb)
+    stemcomputer2=Stemcomputer(usb)
+    stemcomputer3=Stemcomputer(usb)
+    #print("stemcomputers en usb aangemaakt")
+    #nummer=0
+    with open("output.txt", "w") as output:
+        for kiezer in Kiezers.values():
+            chipkaarten={}
+            for x in range(60):
+                chipkaarten[f"chipkaart{x}"] = Chipkaart()
+            randomNummer=math.floor(random.random()*60)
+            chipkaartVanDeKiezer=chipkaarten[f"chipkaart{randomNummer}"]
+            output.write(f"kiezer {kiezer.getName()} kreeg chipkaart {randomNummer} met opstartcode {chipkaartVanDeKiezer.getOpstart()}\n")
+            #nummer+=60
+            stemcomputer1.stemmen(kiezer, chipkaartVanDeKiezer, lijsten)
+            stemcomputer2.stemmen(kiezer, chipkaartVanDeKiezer, lijsten)
+            stemcomputer3.stemmen(kiezer, chipkaartVanDeKiezer, lijsten)
+            if kiezer.heeftGestemd():
+                stem=stemcomputer3.geefStembil(kiezer)
+                output.write(f"{kiezer.getName()} heeft succesvol gestemd!\n")
+                scann.check(stem)
+                stembus.addStembil(stem)
+        
+        for lijst in lijsten.values():
+            for x in lijst.getKandidaten():
+                print(f"kandidaat {x.getName()} heeft {x.getStemmen()} stemmen")
+
+
+    #print(f"er werden {nummer/1200} chipkaarten aangemaakt voor elk kiezer")
+
+
 
 if __name__=="__main__":
     main()
