@@ -4,6 +4,7 @@
 }
 body {
   background: white;
+  padding: 1rem;
 }
 h1 {
   font-weight: 900;
@@ -17,7 +18,17 @@ div {
 div.winnaar {
   background: lightgray;
 }
-@media (min-width: 1200px) {
+@media (min-width: 750px) {
+  body {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  h1 {
+    grid-column: 1/3;
+  }
+}
+
+@media (min-width: 1350px) {
   body {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
