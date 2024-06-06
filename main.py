@@ -12,7 +12,7 @@ def main():
     for x in range(5):
         lijsten[f"Partij{x+1}"]=Lijst(f"Partij{x+1}")
 
-    print("partijen werden aangemaakt.")
+    print("De partijen werden aangemaakt.")
 
     #Kiezers en kandidaten aanmaken, de kandidaten worden ook direct in hun partij gezet.
     count=1
@@ -25,7 +25,7 @@ def main():
             Kiezers[f"kiezer{x}"]=kandidaat
         else:
             Kiezers[f"kiezer{x}"]=Kiezer(x)
-    print("kiezers en kandidaten werden aangemaakt.")
+    print("Kiezers en kandidaten werden aangemaakt.")
     
     #print(f"werkt volledig, kiezer lengte {len(Kiezers)}, 50 kandidaten")
 
@@ -36,7 +36,9 @@ def main():
     stemcomputer1=Stemcomputer(usb)
     stemcomputer2=Stemcomputer(usb)
     stemcomputer3=Stemcomputer(usb)
-    print("stemcomputers, usb, stembus en scanner aangemaakt!")
+
+    print("Stemcomputers, usb, stembus en scanner aangemaakt!")
+
     #nummer=0
     with open("output.txt", "w") as output:
         for kiezer in Kiezers.values():
@@ -46,19 +48,19 @@ def main():
             randomNummer=math.floor(random.random()*60)
             chipkaartVanDeKiezer=chipkaarten[f"chipkaart{randomNummer}"]
 
-            output.write(f"60 chipkaarten werden geïnitialiseerd\n")
-            output.write(f"kiezer {kiezer.getName()} kreeg chipkaart {randomNummer} met opstartcode {chipkaartVanDeKiezer.getOpstart()}\n")
+            output.write(f"60 chipkaarten werden geinitialiseerd\n")
+            output.write(f"Kiezer {kiezer.getName()} kreeg chipkaart {randomNummer} met opstartcode {chipkaartVanDeKiezer.getOpstart()}\n")
 
             #nummer+=60
             stemcomputer1.stemmen(kiezer, chipkaartVanDeKiezer, lijsten)
             stemcomputer2.stemmen(kiezer, chipkaartVanDeKiezer, lijsten)
             stemcomputer3.stemmen(kiezer, chipkaartVanDeKiezer, lijsten)
 
-            output.write(f"kiezer {kiezer.getName()} heeft zijn stem ingevoerd\n")
+            output.write(f"Kiezer {kiezer.getName()} heeft zijn stem ingevoerd\n")
 
             if kiezer.heeftGestemd():
                 stem=stemcomputer3.geefStembil(kiezer)
-                output.write(f"kiezer {kiezer.getName()} zijn stem wordt gevalideerd!\n")
+                output.write(f"Kiezer {kiezer.getName()} zijn stem wordt gevalideerd!\n")
 
                 scann.check(stem)
                 stembus.addStembil(stem)

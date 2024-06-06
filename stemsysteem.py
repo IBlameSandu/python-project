@@ -4,10 +4,10 @@ import math
 
 
 class Stembiljet:
-    """Stembiljet klasse, het gaat de kiezer, lijstnr en kandidaatnr (index binnen lijst) krijgen van de stemcomputer."""
+    """Stembiljet klasse, het gaat de kiezer krijgen van de stemcomputer."""
 
     def __init__(self, kiezer):
-        """3 van de attributen maken sense, de controle attribuut is een extra om ervoor te zorgen dat de rgistratie iets veiliger 
+        """3 van de attributen maken sense, de controle attribuut is een extra om ervoor te zorgen dat de registratie iets veiliger 
         verloopt."""
         self.kiezer=kiezer
         self.__geregistreerd=False

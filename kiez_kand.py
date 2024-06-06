@@ -52,7 +52,7 @@ class Kiezer:
     def __repr__(self):
         """Returnt de namen van de kiezers."""
 
-        return f"{self.__voornaam} {self.__achternaam}"
+        return f"{self.__voornaam} {self.__achternaam}, {self.leeftijd}"
 
 class Kandidaat(Kiezer):
     """Kandidaat klasse dat voor een meerderheid werkt adhv overervingen van de kiezer klasse."""
