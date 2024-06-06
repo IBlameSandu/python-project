@@ -67,8 +67,8 @@ def main():
     output.close() #voor de zekerheid
 
     parser(lijsten)
-    print("een tekst bestand met de volledige output is nu beschikbaar!")
-    print("de HTML output van de verkiezingen is nu beschikbaar!")
+    print("Een tekst bestand met de volledige output is nu beschikbaar!")
+    print("De HTML output van de verkiezingen is nu beschikbaar!")
     #for lijst in lijsten.values():
         #for x in lijst.getKandidaten():
             #print(f"kandidaat {x.getName()} heeft {x.getStemmen()} stemmen")
